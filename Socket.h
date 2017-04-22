@@ -16,7 +16,7 @@ public:
 	bool socketRead(dataBuf buf);
 	bool socketWrite(dataBuf buf);
 	bool socketConnect();
-
+	void closeFd();
 
 private:
 	struct sockaddr_in server_addr;		// server's address info

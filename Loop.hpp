@@ -21,7 +21,15 @@ public:
 		: socket_(socket_), device_(), makePacket_(&device_), parse_(&device_)
    	{ }
 	void loop() {
-		socket_->socketConnect();
+		while (true) {
+			bool ret = socket_->socketConnect();
+			if (ret) {
+				break;
+			} else {
+				socket_->closeFd();
+			}
+			sleep(10);
+		}
 		login();
 		while (true) {
 			uint8_t buf[BUFSIZE] = { 0 };
@@ -36,7 +44,7 @@ public:
 			int cmdType = parse_.parse(buf);
 			switch (cmdType) {
 			case -1:			// 无效数据包
-				printf("无效数据包\n");
+				//printf("无效数据包\n");
 				break;
 			case 0x05:			// 读取运行状态
 				bzero(buf, sizeof buf);

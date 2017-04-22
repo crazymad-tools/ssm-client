@@ -11,14 +11,12 @@
 #include "Loop.hpp"
 
 int main(int argc, char* argv[]) {
-	freopen("config", "r", stdin);
+	freopen("/home/pi/ssm-client/config", "r", stdin);
 	char addr[100];
 	int port;
 	scanf("%d\n%s", &port, addr);
 	printf("%s %d\n", addr, port);
 	Socket socks(addr, port);
-	//Socket socks("182.254.219.134", 8002);
-	//Socket socks("192.168.137.1", 8002);
 	Loop loop_(&socks);
 	loop_.loop();
 

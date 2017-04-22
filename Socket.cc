@@ -21,12 +21,13 @@ bool Socket::socketConnect() {
 	printf("connect...\n");
 	int on;
 	socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-	//assert(setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on) != -1);
+	assert(setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on) != -1);
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(server_port);
 	server_addr.sin_addr.s_addr = inet_addr(server_address);
 	if (connect(socket_fd, (struct sockaddr*)&server_addr, sizeof server_addr) == -1) {
-		perror("connect");
+		//printf("connect error:%s\n", strerror(errno));
+		printf("connect failed!\n");
 		return false;
 	} else {
 		return true;
@@ -47,4 +48,8 @@ bool Socket::socketWrite(dataBuf buf) {
 		return false;
 	}
 	return true;
+}
+
+void Socket::closeFd() {
+	close(socket_fd);
 }
