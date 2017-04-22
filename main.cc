@@ -8,15 +8,12 @@
 #include "def.h"
 #include "Socket.h"
 #include "MakePacket.hpp"
+#include "Loop.hpp"
 
 int main(int argc, char* argv[]) {
 	Socket socks("182.254.219.134", 8002);
-	socks.socketConnect();
-	char buf[BUFSIZE];
-	strcpy(buf, argv[1]);
-	memset(buf, 0, sizeof buf);
-	socks.socketRead(buf);
-	printf("%s\n", buf);
+	Loop loop_(&socks);
+	loop_.loop();
 
 	return 0;
 }

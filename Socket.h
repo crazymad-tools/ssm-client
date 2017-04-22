@@ -12,9 +12,9 @@ class Socket {
 public:
 	Socket(char address_[265], int port_);
 	~Socket();
-	bool init();			// initialization socket 
-	bool socketRead(char buf[BUFSIZE]);
-	bool socketWrite(char buf[BUFSIZE]);
+	//bool init();			// initialization socket 
+	bool socketRead(dataBuf buf);
+	bool socketWrite(dataBuf buf);
 	bool socketConnect();
 
 
