@@ -45,6 +45,9 @@ private:
 void* runInThread(void *obj) {
 	Thread *thread_ = static_cast<Thread*>(obj);
 	while (thread_->statu()) {
+		while (!thread_->statu()) {
+			;
+		}
 		thread_->run();
 	}
 	return NULL;
