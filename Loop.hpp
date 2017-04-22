@@ -25,10 +25,18 @@ public:
 		login();
 		while (true) {
 			uint8_t buf[BUFSIZE] = { 0 };
-			socket_->socketRead(buf);
+			bool ret = socket_->socketRead(buf);
+			if (!ret) {
+				while (!ret) {
+					ret = socket_->socketConnect();
+				}
+				login();
+			}
+			uint16_t timeLen;
 			int cmdType = parse_.parse(buf);
 			switch (cmdType) {
 			case -1:			// 无效数据包
+				printf("无效数据包\n");
 				break;
 			case 0x05:			// 读取运行状态
 				bzero(buf, sizeof buf);
@@ -36,10 +44,14 @@ public:
 				socket_->socketWrite(buf);
 				break;
 			case 0x08:			// 强制打开风扇
-				operation_.openFan();
+				memcpy(&timeLen, buf+27, 2);
+				timeLen = htobe16(timeLen);
+				operation_.openFan(timeLen);
 				break;	
 			case 0x09:			// 强制打开电机
-				operation_.openMotor();
+				memcpy(&timeLen, buf+27, 2);
+				timeLen = htobe16(timeLen);
+				operation_.openMotor(timeLen);
 				break;
 			default:
 				break;
@@ -52,9 +64,13 @@ public:
 		makePacket_.makeLogin(sendBuf);
 		while (true) {
 			socket_->socketWrite(sendBuf);
+			//sleep(1);
+			//socket_->socketWrite(sendBuf);
+			//socket_->socketWrite(sendBuf);
 			socket_->socketRead(recvBuf);
 			uint32_t source_id;
 			memcpy(&source_id, recvBuf+9, 4);
+			printf("%d\n", htobe32(source_id));
 			if (source_id == device_.ssm_id) {
 				break;
 			}

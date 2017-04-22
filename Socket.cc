@@ -34,11 +34,17 @@ bool Socket::socketConnect() {
 }
 
 bool Socket::socketRead(dataBuf buf) {
-	::read(socket_fd, buf, BUFSIZE);
+	int ret = ::read(socket_fd, buf, BUFSIZE);
+	if (ret < 0) {			// 连接异常
+		return false;	
+	}
 	return true;
 }
 
 bool Socket::socketWrite(dataBuf buf) {
-	::write(socket_fd, buf, BUFSIZE);
+	int ret = ::write(socket_fd, buf, BUFSIZE);
+	if (ret < 0) {			// 连接异常
+		return false;
+	}
 	return true;
 }
