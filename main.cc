@@ -9,8 +9,11 @@
 #include "Socket.h"
 #include "MakePacket.hpp"
 #include "Loop.hpp"
+#include "Dig.hpp"
 
 int main(int argc, char* argv[]) {
+	Dig dig;
+	dig.close();
 	freopen("/home/pi/ssm-client/config", "r", stdin);
 	char addr[100];
 	int port;

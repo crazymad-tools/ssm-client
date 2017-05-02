@@ -12,13 +12,17 @@
 #include <sys/time.h>
 #include <sys/select.h>
 #include <time.h>
+#include "Dig.hpp"
 //#include "Thread.hpp"
 
 void threadOpenM(int len) {
 	//sleep(len);
+	Dig dig;
+	dig.open();
 	struct timeval timer;
 	timer.tv_sec = len;
 	select(0, NULL, NULL, NULL, &timer);
+	dig.close();
 	printf("close Motor!\n");
 	exit(1);
 }
