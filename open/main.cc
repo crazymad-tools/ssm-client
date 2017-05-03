@@ -5,7 +5,7 @@
  * Description      : 
  *********************************************************/
 
-//#include "Dig.hpp"
+#include "Dig.hpp"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -17,14 +17,13 @@ int main(int argc, char *argv[]) {
 	int pinNum;
 	sscanf(argv[1], "%d", &length);
 	sscanf(argv[2], "%d", &pinNum);
-	printf("open %s for %ds\t pinNum:%d\n", argv[3], length, pinNum);
-	//sleep(len);
-	//Dig dig;
-	//dig.open();
+	printf("open %s for %ds  pinNum:%d\n", argv[3], length, pinNum);
+	Dig dig(pinNum);
+	dig.open();
 	struct timeval timer;
 	timer.tv_sec = length;
 	select(0, NULL, NULL, NULL, &timer);
-	//dig.close();
+	dig.close();
 	printf("close %s\n", argv[3]);
 
 	return 0;

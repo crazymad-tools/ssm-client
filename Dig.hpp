@@ -14,9 +14,13 @@
 
 class Dig {
 public:
-	Dig() 
-		: PIN(RPI_GPIO_P1_11)
+	Dig(int port) 
 	{
+		if (port == 11) {
+			PIN = RPI_GPIO_P1_11;
+		} else if (port == 15) {
+			PIN = RPI_GPIO_P1_15;
+		}
 		if (!bcm2835_init()) {
 			exit(1);
 		}
@@ -32,7 +36,7 @@ public:
 	}
 
 private:
-	const int PIN;
+	int PIN;
 };
 
 #endif
