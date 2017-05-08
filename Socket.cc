@@ -39,7 +39,7 @@ bool Socket::socketConnect() {
 }
 
 bool Socket::socketRead(dataBuf buf) {
-	int ret = ::read(socket_fd, buf, BUFSIZE);
+	int ret = read(socket_fd, buf, BUFSIZE);
 	printf("socket_fd=%d ret=%d\n", socket_fd, ret);
 	if (ret <= 0) {			// 连接异常
 		return false;	
@@ -48,7 +48,7 @@ bool Socket::socketRead(dataBuf buf) {
 }
 
 bool Socket::socketWrite(dataBuf buf) {
-	int ret = ::write(socket_fd, buf, BUFSIZE);
+	int ret = write(socket_fd, buf, BUFSIZE);
 	if (ret < 0) {			// 连接异常
 		return false;
 	}

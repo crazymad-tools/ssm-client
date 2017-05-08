@@ -86,9 +86,13 @@ public:
 			if (source_id == device_.ssm_id) {
 				break;
 			}
-			//socket_->socketRead(recvBuf);
 		}
-		printf("login seccuess\n");
+		socket_->socketRead(recvBuf);
+		write(socket_->socket_fd, "hello", 5);
+		char buf[256];
+		int ret = read(socket_->socket_fd, buf, sizeof buf);
+		printf("ret = %d", ret);
+		printf("login seccuess\n\n");
 	}
 
 private:

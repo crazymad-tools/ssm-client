@@ -17,10 +17,10 @@ public:
 	bool socketWrite(dataBuf buf);
 	bool socketConnect();
 	void closeFd();
+	int socket_fd;
 
 private:
 	struct sockaddr_in server_addr;		// server's address info
-	int socket_fd;
 	char server_address[256];
 	int server_port;
 

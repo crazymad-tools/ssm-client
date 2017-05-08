@@ -18,7 +18,7 @@ void threadOpenM(int len) {
 	sprintf(param[0], "%d", len);
 	sprintf(param[1], "%d", 11);
 	sprintf(param[2], "%s", "Motor");
-	execl("./open/open", "./open/open", param[0], param[1], param[2], (char*)NULL);
+	//execl("./open/open", "./open/open", param[0], param[1], param[2], (char*)NULL);
 }
 void threadOpenF(int len) {
 	//sleep(len);
@@ -31,7 +31,7 @@ void threadOpenF(int len) {
 	sprintf(param[0], "%d", len);
 	sprintf(param[1], "%d", 15);
 	sprintf(param[2], "%s", "Fan");
-	execl("./open/open", "./open/open", param[0], param[1], param[2], (char*)NULL);
+	//execl("./open/open", "./open/open", param[0], param[1], param[2], (char*)NULL);
 }
 
 class Operation {
