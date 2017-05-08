@@ -18,7 +18,7 @@
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 
-#define BUFSIZE 1024			// the max length of BUFFER
+#define BUFSIZE 256			// the max length of BUFFER
 #define dataBuf uint8_t*	
 
 #endif

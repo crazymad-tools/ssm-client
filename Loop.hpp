@@ -28,7 +28,7 @@ public:
 			} else {
 				socket_->closeFd();
 			}
-			sleep(10);
+			sleep(5);
 		}
 		login();
 		while (true) {
@@ -36,12 +36,15 @@ public:
 			bool ret = socket_->socketRead(buf);
 			if (!ret) {
 				while (!ret) {
+					printf("\n");
+					socket_->closeFd();
 					ret = socket_->socketConnect();
 				}
 				login();
+				continue;
 			}
 			uint16_t timeLen;
-			int cmdType = parse_.parse(buf);
+			uint8_t cmdType = parse_.parse(buf);
 			switch (cmdType) {
 			case -1:			// 无效数据包
 				//printf("无效数据包\n");
@@ -50,6 +53,7 @@ public:
 				bzero(buf, sizeof buf);
 				makePacket_.makeRunStatus(buf);
 				socket_->socketWrite(buf);
+				printf("服务器读取运行状态\n");
 				break;
 			case 0x08:			// 强制打开风扇
 				memcpy(&timeLen, buf+27, 2);
@@ -82,6 +86,7 @@ public:
 			if (source_id == device_.ssm_id) {
 				break;
 			}
+			//socket_->socketRead(recvBuf);
 		}
 		printf("login seccuess\n");
 	}

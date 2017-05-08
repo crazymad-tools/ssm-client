@@ -25,9 +25,9 @@ public:
 		memcpy(buf+9, SERV, 4);			// Dest					4byte
 		buf[13] = 0x04;					// CmdTyep login操作	1byte
 		buf[14] = 0x01;					// Op_Status			1byte
-		uint32_t ssm_id = 111;
-		ssm_id = htobe32(ssm_id);
-		memcpy(buf+15, &ssm_id, 4);
+		//uint32_t ssm_id = device_.ssm_id;
+		//ssm_id = htobe32(ssm_id);
+		memcpy(buf+15, &(device_->ssm_id), 4);
 		//makeRunStatuData(buf+19);		// RunStatuData			
 		device_->makeStatus(buf+19);
 		//uint16_t len = 87;

@@ -27,8 +27,8 @@ public:
 
 	Device() {
 		ssm_status = 0x01;
-		ssm_id = htobe32(uint32_t(111));
-		strncpy((char*)ssm_lable, "SSM_123456", strlen("SSM_123456"));
+		ssm_id = htobe32(uint32_t(1));
+		strncpy((char*)ssm_lable, "CRAZY_MAD", strlen("CRAZY_MAD"));
 		motorStatus = 0x01;
 		resetReason = 0x01;
 		uptime = htobe32(uint32_t(1000));
